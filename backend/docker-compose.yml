@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # Redis 服务
+  redis:
+    image: redis:7-alpine
+    container_name: file-upload-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - file-upload-network
+    restart: unless-stopped
+
+  # Spring Boot 后端服务
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: file-upload-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ALIYUN_OSS_ENDPOINT=${ALIYUN_OSS_ENDPOINT}
+      - ALIYUN_OSS_ACCESS_KEY_ID=${ALIYUN_OSS_ACCESS_KEY_ID}
+      - ALIYUN_OSS_ACCESS_KEY_SECRET=${ALIYUN_OSS_ACCESS_KEY_SECRET}
+      - ALIYUN_OSS_BUCKET_NAME=${ALIYUN_OSS_BUCKET_NAME}
+      - UPLOAD_STORAGE_PATH=/app/uploads
+    volumes:
+      - upload-storage:/app/uploads
+    depends_on:
+      - redis
+    networks:
+      - file-upload-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+    driver: local
+  upload-storage:
+    driver: local
+
+networks:
+  file-upload-network:
+    driver: bridge

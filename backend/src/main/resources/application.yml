@@ -1,0 +1,57 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: file-upload-service
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+      file-size-threshold: 2MB
+
+# 阿里云 OSS 配置
+aliyun:
+  oss:
+    endpoint: ${ALIYUN_OSS_ENDPOINT:oss-cn-hangzhou.aliyuncs.com}
+    access-key-id: ${ALIYUN_OSS_ACCESS_KEY_ID:your-access-key-id}
+    access-key-secret: ${ALIYUN_OSS_ACCESS_KEY_SECRET:your-access-key-secret}
+    bucket-name: ${ALIYUN_OSS_BUCKET_NAME:your-bucket-name}
+
+# 存储类型配置 (local, aliyun)
+storage:
+  type: ${STORAGE_TYPE:local}
+
+# Redis 配置
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DB:0}
+      timeout: 5000ms
+
+# 文件上传配置
+upload:
+  # 分片大小 (2MB)
+  chunk-size: 2097152
+  # 单文件最大大小 (10GB)
+  max-file-size: 10737418240
+  # 每日上传次数限制
+  daily-limit: 100
+  # 上传频率限制 (次/分钟)
+  rate-limit: 10
+  # 存储路径
+  storage-path: ${UPLOAD_STORAGE_PATH:./uploads}
+
+# 日志配置
+logging:
+  level:
+    com.fileupload: DEBUG
+    org.springframework.web: INFO
