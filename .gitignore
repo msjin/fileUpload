@@ -1,2 +1,90 @@
-/.idea/
+# ================================
+# IDE 配置
+# ================================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+.apt_generated/
+.sts4-cache/
+.springBeans
+
+# ================================
+# 构建输出
+# ================================
+target/
+build/
+dist/
+out/
+
+# ================================
+# 前端 (Node.js/Vue)
+# ================================
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ================================
+# 后端 (Java/Maven)
+# ================================
+backend/target/
+backend/mvnw
+backend/mvnw.cmd
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# ================================
+# 日志文件
+# ================================
+*.log
+logs/
+spring.log
+
+# ================================
+# 操作系统文件
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+._*
+
+# ================================
+# 环境变量和敏感配置
+# ================================
+.env
+.env.local
+.env.*.local
+*.properties.local
+application-local.yml
+application-local.properties
+
+# ================================
+# 临时文件
+# ================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ================================
+# Git 相关
+# ================================
+.gitignore.local
+.git-credentials
+
+# ================================
+# Docker
+# ================================
+.docker/
+docker-compose.override.yml
 /frontend/.vscode/
+/.idea/
